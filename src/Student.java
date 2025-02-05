@@ -1,9 +1,14 @@
 public class Student extends User {
-  private final double studentDiscount = 0.8;
+  private final double studentExpendedBorrowTime = 2;
+  private final String school;
 
 
-  public Student(String name, String userId) {
+  public Student(String name, int userId, String school) {
     super(name, userId);
+    this.school = school;
+  }
 
+  public String getSchool() {
+    return this.school;
   }
 }

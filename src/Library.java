@@ -4,10 +4,12 @@ import java.util.Scanner;
 
 public class Library {
   private ArrayList<Book> books;
+  private ArrayList<User> users;
   private Scanner scanner;
 
   public Library() {
     books = new ArrayList<>();
+    users = new ArrayList<>();
     scanner = new Scanner(System.in);
   }
 
@@ -70,11 +72,59 @@ public class Library {
   }
 
 
-  public void addUser(String user) {
+  public void createUser() {
+    String name;
+
+    System.out.print("Are you a student or teacher: ");
+    String typeOfUser = scanner.nextLine();
+
+    if (typeOfUser.equals("student") || typeOfUser.equals("teacher")) {
+      System.out.print("Enter your name: ");
+      name = scanner.nextLine();
+      if (typeOfUser.equals("student")) {
+        System.out.print("Enter your school: ");
+        String school = scanner.nextLine();
+        users.add(new Student(name, users.size(), school));
+      } else {
+        users.add(new Teacher(name, users.size()));
+      }
+    } else {
+      System.out.println("Invalid user type (student/teacher)");
+    }
   }
 
-  public void removeUser(String user) {
+  public void removeUser() {
+    System.out.print("Enter the userId to delete: ");
+    int userIdToDelete = scanner.nextInt();
+
+    for (User user : users) {
+      if (user.getUserId() == userIdToDelete) {
+        users.remove(user);
+        break;
+      }
+    }
   }
 
-
+  public void displayUsers() {
+    for (User user : users) {
+      System.out.println(user.getName());
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
