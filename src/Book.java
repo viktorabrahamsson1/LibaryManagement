@@ -4,11 +4,11 @@ public class Book {
 
   public Book(String title) {
     this.title = title;
-    this.isBorrowed = false;
+    this.isBorrowed = true;
   }
 
-  public void getTitle() {
-    System.out.println(this.title);
+  public String getTitle() {
+    return this.title;
   }
 
   public boolean isBorrowed(){
@@ -23,3 +23,4 @@ public class Book {
     this.isBorrowed = false;
   }
 }
+
