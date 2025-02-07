@@ -5,7 +5,6 @@ import java.util.HashMap;
 public abstract class User {
   private String name;
   private int userId;
-  private Library library;
   private HashMap<Book, LocalDate> borrowedBooks;
 
   public User(String name, int userId) {
@@ -14,8 +13,7 @@ public abstract class User {
     borrowedBooks = new HashMap<>();
   }
 
-  public void borrowBook() {
-    Book book = library.findBook();
+  public void borrowBook(Book book) {
     if (book == null) return;
 
     if (!book.isBorrowed()) {
@@ -27,15 +25,15 @@ public abstract class User {
     }
   }
 
-  public void returnBook() {
-    Book book = library.findBook();
+  public void returnBook(Book book) {
+    if (book == null) return;
 
     if (book.isBorrowed() && borrowedBooks.get(book) != null) {
       book.returnBook();
       borrowedBooks.remove(book);
       System.out.println("You have returned: " + book.getTitle() + ".");
     } else {
-      System.out.println("This book is not borrowed.");
+      System.out.println("This book is not borrowed or it is not your book.");
     }
   }
 

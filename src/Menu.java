@@ -7,65 +7,102 @@ public class Menu {
   public Menu() {
     library = new Library();
     scanner = new Scanner(System.in);
+    boolean runLibrary = true;
 
-    while (true) {
-      displayMenu();
-      int choice = getUserChoice(); // Get user's choice dynamically
+    while (runLibrary) {
+      int choice;
 
-      switch (choice) {
-        case 1:
-          library.createUser();
-          break;
-        case 2:
-          library.logIn();
-          break;
-        case 3:
-          library.displayBooks();
-          break;
-        case 4:
-          library.addBook();
-          break;
-        case 5:
-          library.removeBook();
-          break;
-        case 6:
-          library.borrowBook();
-          break;
-        case 7:
-          library.returnBook();
-          break;
-        case 8:
-          library.displayUsers();
-          break;
-        case 9:
-          library.removeUser();
-          break;
-        case 10:
-          System.out.println("Exiting the program...");
-          scanner.close();
-          System.exit(0); // Exit the program
-          break;
-        default:
-          System.out.println("Invalid choice, please try again.");
-          break;
+      if (library.userActions.loggedInUser == null) {
+        displayStartMenu();
+        choice = getUserChoice();
+
+        switch (choice) {
+          case 1:
+            library.bookActions.loggedInUser = library.userActions.logIn();
+            break;
+          case 2:
+            library.userActions.createUser();
+            break;
+          case 3:
+            library.userActions.displayUsers();
+            break;
+          case 4:
+            System.out.println("Exiting the program...");
+            scanner.close();
+            runLibrary = false;
+            break;
+          default:
+            System.out.println("Invalid choice, please try again.");
+            break;
+        }
+      } else {
+        displayLoggedInMenu();
+        choice = getUserChoice();
+        switch (choice) {
+          case 1:
+            library.bookActions.loggedInUser = library.userActions.logOut();
+            break;
+          case 2:
+            library.userActions.createUser();
+            break;
+          case 3:
+            library.userActions.removeUser();
+            break;
+          case 4:
+            library.bookActions.addBook();
+            break;
+          case 5:
+            library.bookActions.removeBook();
+            break;
+          case 6:
+            library.bookActions.borrowBook();
+            break;
+          case 7:
+            library.bookActions.returnBook();
+            break;
+          case 8:
+            library.bookActions.displayBooks();
+            break;
+          case 9:
+            library.userActions.displayUsers();
+            break;
+          case 10:
+            System.out.println("Exiting the program...");
+            scanner.close();
+            runLibrary = false;
+            break;
+          default:
+            System.out.println("Invalid choice, please try again.");
+            break;
+        }
       }
+
+
     }
   }
 
-  // Method to display the menu
-  private void displayMenu() {
+  private void displayStartMenu() {
     System.out.println("\nLibrary System Menu:");
-    System.out.println("1. Create a new user");
-    System.out.println("2. Log in");
-    System.out.println("3. Display all books");
+    System.out.println("1. Log in");
+    System.out.println("2. Create a new user");
+    System.out.println("3. Display all users");
+    System.out.println("4. Exit");
+  }
+
+  private void displayLoggedInMenu() {
+    System.out.println("\nLibrary System Menu:");
+    System.out.println("1. Log out");
+    System.out.println("2. Create a new user");
+    System.out.println("3. Remove a user");
     System.out.println("4. Add a new book");
     System.out.println("5. Remove a book");
     System.out.println("6. Borrow a book");
     System.out.println("7. Return a book");
-    System.out.println("8. Display all users");
-    System.out.println("9. Remove a user");
+    System.out.println("8. Display all books");
+    System.out.println("9. Display all users");
     System.out.println("10. Exit");
   }
+
 
   // Method to get user's choice
   private int getUserChoice() {

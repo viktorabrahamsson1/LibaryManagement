@@ -4,22 +4,22 @@ public class Book {
 
   public Book(String title) {
     this.title = title;
-    this.isBorrowed = true;
+    this.isBorrowed = false;
   }
 
   public String getTitle() {
     return this.title;
   }
 
-  public boolean isBorrowed(){
+  public boolean isBorrowed() {
     return this.isBorrowed;
   }
 
-  public void borrowBook(){
+  public void borrowBook() {
     this.isBorrowed = true;
   }
 
-  public void returnBook(){
+  public void returnBook() {
     this.isBorrowed = false;
   }
 }
