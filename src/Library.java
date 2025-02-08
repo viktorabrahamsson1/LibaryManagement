@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Library {
   private ArrayList<Book> books;
   private ArrayList<User> users;
-  private User loggedInUser;
   public UserActions userActions;
   public BookActions bookActions;
+  private User loggedInUser;
 
 
   public Library() {

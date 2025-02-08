@@ -15,11 +15,11 @@ public class Book {
     return this.isBorrowed;
   }
 
-  public void borrowBook() {
+  public void markAsBorrowed() {
     this.isBorrowed = true;
   }
 
-  public void returnBook() {
+  public void markAsReturned() {
     this.isBorrowed = false;
   }
 }

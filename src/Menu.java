@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Menu {
-  Library library;
-  Scanner scanner;
+  private Library library;
+  private Scanner scanner;
 
   public Menu() {
     library = new Library();
@@ -12,72 +12,41 @@ public class Menu {
     while (runLibrary) {
       int choice;
 
-
       if (library.getLoggedInUser() == null) {
         displayStartMenu();
         choice = getUserChoice();
 
         switch (choice) {
-          case 1:
-            library.setLoggedInUser(library.userActions.logIn());
-            break;
-          case 2:
-            library.userActions.createUser();
-            break;
-          case 3:
-            library.userActions.displayUsers();
-            break;
-          case 4:
+          case 1 -> library.setLoggedInUser(library.userActions.logIn());
+          case 2 -> library.userActions.createUser();
+          case 3 -> library.userActions.displayUsers();
+          case 4 -> {
             System.out.println("Exiting the program...");
             scanner.close();
             runLibrary = false;
-            break;
-          default:
-            System.out.println("Invalid choice, please try again.");
-            break;
+          }
+          default -> System.out.println("Invalid choice, please try again.");
         }
       } else {
         displayLoggedInMenu();
         choice = getUserChoice();
         switch (choice) {
-          case 1:
-            library.setLoggedInUser(library.userActions.logOut());
-            break;
-          case 2:
-            library.userActions.createUser();
-            break;
-          case 3:
-            library.userActions.removeUser();
-            break;
-          case 4:
-            library.bookActions.addBook();
-            break;
-          case 5:
-            library.bookActions.removeBook();
-            break;
-          case 6:
-            library.bookActions.borrowBook();
-            break;
-          case 7:
-            library.bookActions.returnBook();
-            break;
-          case 8:
-            library.userActions.displayBorrowedBook();
-            break;
-          case 9:
-            library.bookActions.displayBooks();
-            break;
-          case 10:
-            library.userActions.displayUsers();
-            break;
-          case 11:
+          case 1 -> library.setLoggedInUser(library.userActions.logOut());
+          case 2 -> library.userActions.createUser();
+          case 3 -> library.userActions.removeUser();
+          case 4 -> library.bookActions.addBook();
+          case 5 -> library.bookActions.removeBook();
+          case 6 -> library.bookActions.borrowBookForUser();
+          case 7 -> library.bookActions.returnBookForUser();
+          case 8 -> library.userActions.displayBorrowedBook();
+          case 9 -> library.bookActions.displayBooks();
+          case 10 -> library.userActions.displayUsers();
+          case 11 -> {
             System.out.println("Exiting the program...");
             scanner.close();
             runLibrary = false;
-            break;
-          default:
-            System.out.println("Invalid choice, please try again.");
-            break;
+          }
+          default -> System.out.println("Invalid choice, please try again.");
         }
       }
 

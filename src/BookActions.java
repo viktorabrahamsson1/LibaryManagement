@@ -43,21 +43,21 @@ public class BookActions {
   }
 
 
-  public void borrowBook() {
+  public void borrowBookForUser() {
     User loggedInUser = library.getLoggedInUser();
     if (loggedInUser != null) {
       Book book = findBook();
-      loggedInUser.borrowBook(book);
+      loggedInUser.borrowBookFromLibrary(book);
     } else {
       System.out.println("No user is logged in.");
     }
   }
 
-  public void returnBook() {
+  public void returnBookForUser() {
     User loggedInUser = library.getLoggedInUser();
     if (loggedInUser != null) {
       Book book = findBook();
-      loggedInUser.returnBook(book);
+      loggedInUser.returnBookToLibrary(book);
     } else {
       System.out.println("No user is logged in.");
     }

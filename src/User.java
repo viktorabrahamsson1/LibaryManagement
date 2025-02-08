@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 
 public abstract class User {
@@ -13,25 +12,25 @@ public abstract class User {
     borrowedBooks = new HashMap<>();
   }
 
-  public abstract int getBorrowTimeMultiplier();
+  public abstract int getExtendedBorrowTime();
 
-  public void borrowBook(Book book) {
+  public void borrowBookFromLibrary(Book book) {
     if (book == null) return;
 
     if (!book.isBorrowed()) {
-      book.borrowBook();
-      borrowedBooks.put(book, LocalDate.now().plusDays(7 * getBorrowTimeMultiplier()));
+      book.markAsBorrowed();
+      borrowedBooks.put(book, LocalDate.now().plusDays(7 * getExtendedBorrowTime()));
       System.out.println("You have now borrowed: " + book.getTitle());
     } else {
       System.out.println("Book is already borrowed");
     }
   }
 
-  public void returnBook(Book book) {
+  public void returnBookToLibrary(Book book) {
     if (book == null) return;
 
     if (book.isBorrowed() && borrowedBooks.get(book) != null) {
-      book.returnBook();
+      book.markAsReturned();
       borrowedBooks.remove(book);
       System.out.println("You have returned: " + book.getTitle() + ".");
     } else {
@@ -52,8 +51,12 @@ public abstract class User {
   }
 
   public void getBorrowed() {
-    borrowedBooks.forEach((book, dueDate) -> {
-      System.out.println("Book: " + book.getTitle() + " is due on: " + dueDate);
-    });
+    if (borrowedBooks.isEmpty()) {
+      System.out.println("No borrowed books.");
+    } else {
+      borrowedBooks.forEach((book, dueDate) -> {
+        System.out.println("Book: " + book.getTitle() + " is due on: " + dueDate);
+      });
+    }
   }
 }

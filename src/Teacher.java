@@ -5,7 +5,7 @@ public class Teacher extends User {
     super(name, userId);
   }
 
-  public int getBorrowTimeMultiplier() {
+  public int getExtendedBorrowTime() {
     return this.extendedBorrowTime;
   }
 }

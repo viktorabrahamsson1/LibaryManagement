@@ -8,7 +8,7 @@ public class Student extends User {
     this.school = school;
   }
 
-  public int getBorrowTimeMultiplier() {
+  public int getExtendedBorrowTime() {
     return this.extendedBorrowTime;
   }
 
