@@ -3,19 +3,18 @@ import java.util.Scanner;
 
 public class BookActions {
   private Scanner scanner;
-  private ArrayList<Book> books;
-  public User loggedInUser;
+  private Library library;
 
-  public BookActions() {
+  public BookActions(Library library) {
     scanner = new Scanner(System.in);
-    books = new ArrayList<Book>();
+    this.library = library;
   }
 
   public Book findBook() {
     System.out.print("Enter book title: ");
     String title = scanner.nextLine();
 
-    for (Book book : books) {
+    for (Book book : library.getBooks()) {
       if (book.getTitle().equalsIgnoreCase(title)) {
         return book;
       }
@@ -29,14 +28,14 @@ public class BookActions {
     System.out.print("Enter the title of the book: ");
     String title = scanner.nextLine();
     Book book = new Book(title);
-    books.add(book);
+    library.getBooks().add(book);
   }
 
   public void removeBook() {
     Book book = findBook();
 
     if (!book.isBorrowed()) {
-      books.remove(book);
+      library.getBooks().remove(book);
       System.out.println("The book: " + book.getTitle() + " was deleted.");
     } else {
       System.out.println("The book is currently being borrowed and cant be deleted.");
@@ -45,6 +44,7 @@ public class BookActions {
 
 
   public void borrowBook() {
+    User loggedInUser = library.getLoggedInUser();
     if (loggedInUser != null) {
       Book book = findBook();
       loggedInUser.borrowBook(book);
@@ -54,6 +54,7 @@ public class BookActions {
   }
 
   public void returnBook() {
+    User loggedInUser = library.getLoggedInUser();
     if (loggedInUser != null) {
       Book book = findBook();
       loggedInUser.returnBook(book);
@@ -63,7 +64,7 @@ public class BookActions {
   }
 
   public void displayBooks() {
-
+    ArrayList<Book> books = library.getBooks();
     if (books.isEmpty()) {
       System.out.println("No books available.");
       return;

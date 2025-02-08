@@ -13,12 +13,14 @@ public abstract class User {
     borrowedBooks = new HashMap<>();
   }
 
+  public abstract int getBorrowTimeMultiplier();
+
   public void borrowBook(Book book) {
     if (book == null) return;
 
     if (!book.isBorrowed()) {
       book.borrowBook();
-      borrowedBooks.put(book, LocalDate.now().plusDays(7));
+      borrowedBooks.put(book, LocalDate.now().plusDays(7 * getBorrowTimeMultiplier()));
       System.out.println("You have now borrowed: " + book.getTitle());
     } else {
       System.out.println("Book is already borrowed");
@@ -49,7 +51,9 @@ public abstract class User {
     System.out.println("Information: " + "Name: " + this.getName() + ", UserId: " + this.getUserId());
   }
 
-  public HashMap<Book, LocalDate> getBorrowed() {
-    return borrowedBooks;
+  public void getBorrowed() {
+    borrowedBooks.forEach((book, dueDate) -> {
+      System.out.println("Book: " + book.getTitle() + " is due on: " + dueDate);
+    });
   }
 }

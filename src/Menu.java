@@ -12,13 +12,14 @@ public class Menu {
     while (runLibrary) {
       int choice;
 
-      if (library.userActions.loggedInUser == null) {
+
+      if (library.getLoggedInUser() == null) {
         displayStartMenu();
         choice = getUserChoice();
 
         switch (choice) {
           case 1:
-            library.bookActions.loggedInUser = library.userActions.logIn();
+            library.setLoggedInUser(library.userActions.logIn());
             break;
           case 2:
             library.userActions.createUser();
@@ -40,7 +41,7 @@ public class Menu {
         choice = getUserChoice();
         switch (choice) {
           case 1:
-            library.bookActions.loggedInUser = library.userActions.logOut();
+            library.setLoggedInUser(library.userActions.logOut());
             break;
           case 2:
             library.userActions.createUser();
@@ -61,12 +62,15 @@ public class Menu {
             library.bookActions.returnBook();
             break;
           case 8:
-            library.bookActions.displayBooks();
+            library.userActions.displayBorrowedBook();
             break;
           case 9:
-            library.userActions.displayUsers();
+            library.bookActions.displayBooks();
             break;
           case 10:
+            library.userActions.displayUsers();
+            break;
+          case 11:
             System.out.println("Exiting the program...");
             scanner.close();
             runLibrary = false;
@@ -98,9 +102,10 @@ public class Menu {
     System.out.println("5. Remove a book");
     System.out.println("6. Borrow a book");
     System.out.println("7. Return a book");
-    System.out.println("8. Display all books");
-    System.out.println("9. Display all users");
-    System.out.println("10. Exit");
+    System.out.println("8. Display borrowed books");
+    System.out.println("9. Display all books");
+    System.out.println("10. Display all users");
+    System.out.println("11. Exit");
   }
 
 

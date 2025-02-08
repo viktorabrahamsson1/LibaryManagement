@@ -1,19 +1,36 @@
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
 
 
 public class Library {
   private ArrayList<Book> books;
   private ArrayList<User> users;
+  private User loggedInUser;
   public UserActions userActions;
   public BookActions bookActions;
+
 
   public Library() {
     books = new ArrayList<>();
     users = new ArrayList<>();
-    this.userActions = new UserActions(this.users);
-    this.bookActions = new BookActions();
+    loggedInUser = null;
+    this.userActions = new UserActions(this);
+    this.bookActions = new BookActions(this);
+  }
+
+  public ArrayList<User> getUsers() {
+    return this.users;
+  }
+
+  public ArrayList<Book> getBooks() {
+    return this.books;
+  }
+
+  public User getLoggedInUser() {
+    return this.loggedInUser;
+  }
+
+  public void setLoggedInUser(User loggedInUser) {
+    this.loggedInUser = loggedInUser;
   }
 }
 

@@ -1,7 +1,11 @@
 public class Teacher extends User {
-  private final double teacherExpendedBorrowTime = 1.5;
+  public final int extendedBorrowTime = 2;
 
   public Teacher(String name, int userId) {
     super(name, userId);
+  }
+
+  public int getBorrowTimeMultiplier() {
+    return this.extendedBorrowTime;
   }
 }

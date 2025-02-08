@@ -3,16 +3,16 @@ import java.util.Scanner;
 
 public class UserActions {
   private Scanner scanner;
-  private ArrayList<User> users;
-  User loggedInUser;
+  private Library library;
 
-  public UserActions(ArrayList<User> users) {
+  public UserActions(Library library) {
     scanner = new Scanner(System.in);
-    this.users = users;
+    this.library = library;
   }
 
 
   public User logIn() {
+    User loggedInUser = library.getLoggedInUser();
     User user = findUser();
     if (user != null) {
       loggedInUser = user;
@@ -22,6 +22,8 @@ public class UserActions {
   }
 
   public User logOut() {
+    User loggedInUser = library.getLoggedInUser();
+
     if (loggedInUser != null) {
       loggedInUser = null;
     } else {
@@ -35,7 +37,7 @@ public class UserActions {
     String name = scanner.nextLine();
 
 
-    for (User user : users) {
+    for (User user : library.getUsers()) {
       if (user.getName().equals(name)) {
         return user;
       }
@@ -47,6 +49,7 @@ public class UserActions {
 
   public void createUser() {
     String name;
+    ArrayList<User> users = library.getUsers();
 
     System.out.print("Are you a student or teacher: ");
     String typeOfUser = scanner.nextLine().toLowerCase();
@@ -67,20 +70,29 @@ public class UserActions {
   }
 
   public void removeUser() {
-    System.out.print("Enter the userId to delete: ");
-    int userIdToDelete = scanner.nextInt();
-    scanner.nextLine();
+    System.out.print("Enter the name to delete: ");
+    String nameToDelete = scanner.nextLine();
+    ArrayList<User> users = library.getUsers();
+    User loggedInUser = library.getLoggedInUser();
+
 
     for (User user : users) {
-      if (user.getUserId() == userIdToDelete) {
+      if (user.getName().equals(nameToDelete)) {
         users.remove(user);
+        if (loggedInUser.equals(user)) {
+          library.setLoggedInUser(null);
+        }
         break;
       }
     }
   }
 
-  public void displayUsers() {
+  public void displayBorrowedBook() {
+    library.getLoggedInUser().getBorrowed();
+  }
 
+  public void displayUsers() {
+    ArrayList<User> users = library.getUsers();
     if (users.isEmpty()) {
       System.out.println("No users to display.");
       return;
