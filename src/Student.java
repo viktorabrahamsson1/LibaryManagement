@@ -8,6 +8,7 @@ public class Student extends User {
     this.school = school;
   }
 
+  @Override
   public int getExtendedBorrowTime() {
     return this.extendedBorrowTime;
   }

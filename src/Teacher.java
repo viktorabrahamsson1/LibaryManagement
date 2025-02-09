@@ -5,6 +5,7 @@ public class Teacher extends User {
     super(name, userId);
   }
 
+  @Override
   public int getExtendedBorrowTime() {
     return this.extendedBorrowTime;
   }
